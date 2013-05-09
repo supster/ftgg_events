@@ -1,0 +1,46 @@
+<% provide(:title, 'Home')%>  
+<div class="row">
+	<div class="span10">
+		<h2>Best nonprofit learning and networking events</h2>	
+		<h3>
+			We curate the best events into one list.   
+		</h3>
+		<!--What's your interests (e.g. non-profit, tech, single scene, etc)?
+		<%= form_tag :controller => 'events', :action => 'search', :method => 'get' do %>
+			<%= text_field_tag :search, params[:search], :id => 'search_field', size: 100, style: "width: 400px" %>
+			<%= submit_tag "Search", :name => nil %> 
+		<% end %> -->
+		<%= will_paginate %>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Date Time</th>
+					<th>Cost</th>
+					<th>Information</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% @events.each do |event| %>
+				<tr>
+					<td><%= time_tag event.start_date_time %></td>
+					<td><%= if event.cost > 0 
+								"$#{event.cost}" 
+							else 
+								"Free" 
+							end %></td>
+					<td><%= link_to event.name, event %><br>
+						<%= "#{event.location} #{event.address}" %><br>
+					</td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+		<%= will_paginate %>
+	</div>
+
+	<div class="span2">
+		<table>
+			<tr><td></td></tr>
+		</table>
+	</div>
+</div>

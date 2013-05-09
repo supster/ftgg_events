@@ -1,0 +1,80 @@
+<% provide(:title, @event.name)%>
+<% content_for :head do %>
+	<%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCVyEbVVhfHMiI6G4P0SDnxvSCp8bcCMac&sensor=false' %>
+	<script type="text/javascript">
+	
+  	  function codeAddress() {
+ 	  	geocoder = new google.maps.Geocoder();
+   		var address = "<%=  @event.address %>";
+		
+	    geocoder.geocode( { 'address': address }, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+			showMap(results[0]);
+	      } else {
+	        $("#map-canvas").html("Google Geocode was not successful for the following reason: <br> " + status);
+	      }
+	    });
+	  }
+
+	  function showMap(geoCodeResult){
+	    var mapOptions = {
+	      center: geoCodeResult.geometry.location,
+	      zoom: 16,
+	      mapTypeId: google.maps.MapTypeId.ROADMAP,
+	      mapMarker: true
+	    };
+	    
+	    var map = new google.maps.Map(document.getElementById("map-canvas"),
+	        mapOptions);
+    		  	
+        var marker = new google.maps.Marker({
+            map: map, 
+            position: geoCodeResult.geometry.location
+        });	  		  	
+	  }
+	
+	  function initialize() {
+	        
+	  	codeAddress();
+
+	  }
+	  
+	  google.maps.event.addDomListener(window, 'load', initialize);
+	</script>  
+<% end %>
+<div class="row">
+	<div class="span12">
+		<h1>
+			<%= @event.name %>
+		</h1>
+		<div class="row">
+			<div class="span12">
+				<table>
+					<tr><td width="30%">URL:</td><td><%= link_to @event.url, @event.url, :target => "_blank" %></td></tr>
+					<tr><td>Cost:</td>
+						<td> 
+						<%= if @event.cost > 0 
+								"$#{@event.cost}" 
+							else 
+								"Free" 
+							end %><br>
+						</td>
+					</tr>
+					<tr><td>Location:</td><td><%= "#{@event.location}, #{@event.address}" %></td></tr>
+				</table>
+				<table>
+					<tr><td>Map</td></tr>
+					<tr>
+						<td>
+							<div id="map-canvas"></div>
+						</td>
+					</tr>
+				</table>	
+				<table>
+					<tr><td>Description</td></tr>
+					<tr><td><%= @event.description.html_safe %></td></tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

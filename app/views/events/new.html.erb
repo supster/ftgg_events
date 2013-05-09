@@ -1,0 +1,71 @@
+<% provide(:title, 'New Event')%>
+<% content_for :head do %>
+	<style type="text/css">
+		select { width: 90px;}
+	</style>
+
+	<script type="text/javascript">
+  $(function() { 
+  	$('#start_date').datepicker({minDate: 0, dateformat: "mm-dd-yyyy"}); 
+  	$('#end_date').datepicker({minDate: 0}); 
+  });
+	</script>
+<% end %>
+<h1>Add Event</h1>
+<div class="row">
+	<%= render "shared/error", error: @event  %>
+	<div class="span10">
+		<%= form_for @event, html: {class: "form-horizontal"} do |f| %>
+			<div class="control-group">
+				<%= f.label :name, class: "control-label" %><%= f.text_field :name, class: "controls textbox" %>
+			</div>
+			<div class="control-group">
+				<%= f.label 	:description, 	class: "control-label" %>
+				<%= f.text_area :description, 	class: "controls", rows: 5 %>
+			</div>
+			<div class="control-group">
+				<%= f.label :location, "Location Name",	class: "control-label"   %>
+				<%= f.text_field :location, 	class: "controls" %>
+			</div>
+
+			<div class="control-group">
+				<%= f.label :address, 		class: "control-label"  %>
+				<%= f.text_field :address, 	class: "controls" %>
+			</div>
+
+			<div class="control-group">
+				<%= f.label :start_date_time,  	class: "control-label"  %>
+				<table style="margin: 0; padding: 0;">
+					<tr>
+						<td><%= text_field_tag :start_date, @event.start_date_time.try(:to_date), class: "controls", style: "width: 200px" %></td>
+						<td><%= f.time_select :start_date_time, ignore_date: true, minute_step: 5, ampm: true %></td>
+					</tr>
+				</table>
+			</div>
+			<div class="control-group">
+				<%= f.label :end_date_time,  	class: "control-label" %>
+				<table style="margin: 0; padding: 0;">
+					<tr>
+						<td><%= text_field_tag :end_date, 	@event.end_date_time.try(:to_date), class: "controls", style: "width: 200px" %></td>
+						<td><%= f.time_select :end_date_time, ignore_date: true, minute_step: 5, ampm: true %></td>
+					</tr>
+				</table>				
+			</div>
+			<div class="control-group">
+				<%= f.label :time_zone,  class: "control-label" %>
+				<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
+			</div>
+			<div class="control-group">
+				<%= f.label :url, "URL",  	class: "control-label"  %>
+				<%= f.url_field :url, class: "controls" %>
+			</div>
+			<div class="control-group">
+				<%= f.label :cost,	class: "control-label"  %>
+				<%= f.text_field :cost, value: 0, 	class: "controls" %>
+			</div>	
+			<%= f.submit "Create Event", class: "btn btn-large btn-primary", style: "float: right" %>
+		<% end %>
+	</div>
+</div>
+
+
