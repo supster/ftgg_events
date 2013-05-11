@@ -4,6 +4,7 @@
     <%= link_to 'FTGG Event Guide', root_path, {id: "logo", class: 'brand'}%>
 	<nav>
 		<ul class="nav pull-right">
+			<li><%= link_to "Events", 	root_path %></li>
 			<li><%= link_to "Blog", 	"" %></li>
 			<li><%= link_to "Add Event", 	new_event_path %></li>
 			<% if signed_in? %>
