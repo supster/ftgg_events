@@ -8,13 +8,13 @@
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
+/*input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 400px;
   height: auto;
   margin-bottom: 15px;
   @include box_sizing;  
-}
+}*/
 
 #error_explanation {
   color: #f00;
@@ -34,7 +34,13 @@ input, textarea, select, .uneditable-input {
   border: 1px solid
 }
 
-#event_time_zone { 
-  width:400px; 
-  @extend .controls; 
+.navbar-inner {
+  background-color: #B7CBE0; /* background color will be black for all browsers */
+  background-image: none;
+  background-repeat: no-repeat;
+  filter: none;
+}
+
+.navbar .nav > li > a {
+  text-shadow: none;
 }

@@ -4,7 +4,7 @@ describe Event do
 	before do 
 		@event = Event.new(name: "Non-profit meet up", description: "test",
 							  start_date_time: Time.now + 1.hour, end_date_time: Time.now + 2.hour,
-							  location: "NYU", address: "123 8 street, New York, NY", cost: 0)
+							  location: "NYU", address: "123 8 street, New York, NY", cost: 0, benefits: "improve")
 	end
 
 	subject { @event}
@@ -16,6 +16,7 @@ describe Event do
 	it { should respond_to(:location) }
 	it { should respond_to(:address) }
 	it { should respond_to(:cost) }
+	it { should respond_to(:benefits)}
 
 	it { should be_valid }
 

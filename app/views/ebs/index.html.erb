@@ -1,0 +1,56 @@
+<% provide(:title, 'EventBrite Data')%>
+<% content_for :head do %>
+	<script type="text/javascript">
+		$(function() {
+			$("#chkAll").click(function(){
+				if($("#chkAll").is(":checked")){
+					$(":checkbox").prop('checked', true);
+				}else{
+					$(":checkbox").prop('checked', false);
+				}
+			});
+
+		})
+	</script>
+<% end %>
+<div class="row">
+  <div class="span12">
+    <h2>EventBrite Listing</h2>	
+	<%= form_tag ebs_path do %>
+	<%= button_tag "Retrieve Data from Event Brite",  
+				value: "retrieve", confirm: "Are you sure?", class: "btn btn-danger" %>		
+	<% end %>
+	<% if !@ebs.nil? %>
+		<%= form_tag ebs_path do %>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th><%= check_box_tag "chkAll", "All", true %></th>
+					<th>Date Time</th>
+					<th>Cost</th>
+					<th>Information</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% @ebs.each do |event| %>
+				<tr>
+					<td><%= check_box_tag "eb_ids[]", event.id, true %></td>
+					<td><%= time_tag event.start_date_time %></td>
+					<td><%= if !event.cost.nil? && event.cost > 0 
+								number_to_currency(event.cost)
+							else 
+								"Free" 
+							end %></td>
+					<td><%= link_to event.name, event.url, target: "_blank" %><br>
+						<%= "#{event.location} #{event.address}" %><br>
+					</td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+		<%= button_tag "Show", value: "show", confirm: "Are you sure?", class: "btn btn-primary" unless @ebs.count <= 0 %>
+		<%= button_tag "Archieve", value: "archieve", confirm: "Are you sure?", class: "btn btn-primary"  unless @ebs.count <= 0 %>
+		<% end %>
+	<% end %>
+  </div>
+</div>

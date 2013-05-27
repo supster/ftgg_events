@@ -1,15 +1,14 @@
 <% provide(:title, 'Home')%>  
 <div class="row">
 	<div class="span10">
-		<h2>Best nonprofit learning and networking events</h2>	
-		<h3>
-			We curate the best events into one list.   
-		</h3>
-		<!--What's your interests (e.g. non-profit, tech, single scene, etc)?
+		<h3>Nonprofit learning and networking events</h3>	
+		<h4>
+			We curate awesome events into one list.   
+		</h4>
 		<%= form_tag :controller => 'events', :action => 'search', :method => 'get' do %>
-			<%= text_field_tag :search, params[:search], :id => 'search_field', size: 100, style: "width: 400px" %>
-			<%= submit_tag "Search", :name => nil %> 
-		<% end %> -->
+			<%= text_field_tag :search, params[:search], :id => 'search_field', size: 100, class: "input-xxlarge" %>
+			<%= submit_tag "Search", name: nil, class: "btn" %> 
+		<% end %>
 		<%= will_paginate %>
 		<table class="table table-hover">
 			<thead>
@@ -24,7 +23,7 @@
 				<tr>
 					<td><%= time_tag event.start_date_time %></td>
 					<td><%= if event.cost > 0 
-								"$#{event.cost}" 
+								number_to_currency(event.cost)
 							else 
 								"Free" 
 							end %></td>
@@ -39,8 +38,16 @@
 	</div>
 
 	<div class="span2">
-		<table style="border: 1px solid;">
-			<tr><td >Advertising Space<br/><br/></td></tr>
-		</table>
+		<script type="text/javascript"><!--
+		google_ad_client = "ca-pub-0542984886368674";
+		/* FTGG */
+		google_ad_slot = "6551678967";
+		google_ad_width = 160;
+		google_ad_height = 600;
+		//-->
+		</script>
+		<script type="text/javascript"
+		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+		</script>
 	</div>
 </div>

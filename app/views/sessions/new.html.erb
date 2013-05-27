@@ -1,7 +1,13 @@
 <% provide(:title, 'Sign In')%>
-<h1>Sign In</h1>
+<% content_for :head do %>
+<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+  api_key: kdi6s57l5zj9
+  authorize: true
+</script>  
+<% end %>
 <div class="row">
 	<div class="span6 offset3">
+		<h2>Sign In</h2>
 		<%= form_for(:session, url: sessions_path) do |f| %>
 		
 			<%= f.label :email %>
@@ -9,8 +15,8 @@
 			
 			<%= f.label :password %>
 			<%= f.password_field :password %>
-					
-			<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+			<br>		
+			<%= f.submit "Sign in", class: "btn" %>
 
 		<% end %>
 	</div>

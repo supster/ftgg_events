@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   attr_accessible 	:name, :description, :address, :location, :cost, 
-  					:end_date_time, :start_date_time, :time_zone, :url
+  					:end_date_time, :start_date_time, :time_zone, :url, :benefits
             
   validate 	:start_date_time_cannot_be_in_the_past
   validate	:end_date_time_cannot_be_in_the_past

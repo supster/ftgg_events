@@ -1,4 +1,5 @@
 Ftgg::Application.routes.draw do
+  resources :ebs, only: [:index, :create, :show]
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :events

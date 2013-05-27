@@ -1,22 +1,42 @@
 <% provide(:title, 'Sign Up')%>
-<h1>Sign Up</h1>
+<% content_for :head do %>
+	<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+	  api_key: 6pdlxngbkhb9
+	  authorize: true
+	</script>	  
+<% end %>
+<h2>Sign Up</h2>
 <div class="row">
-	<%= render "shared/error", error: @user  %>
-	<div class="span6 offset3">
-		<%= form_for(@user) do |f| %>
-		<%= f.label :name %>
-		<%= f.text_field :name %>
+	<div class="span6">
+		<%= render "shared/error", error: @user  %>
+		<%= form_for @user, html: {class: "form-horizontal"} do |f| %>
+		<div class="control-group">
+			<%= f.label :name, class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :name, class: "input-large" %>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :email, class: "control-label"  %>
+			<div class="controls"><%= f.text_field :email, class: "input-large" %></div>
+		</div>
 		
-		<%= f.label :email %>
-		<%= f.text_field :email %>
+		<div class="control-group">
+			<%= f.label :password, class: "control-label"  %>
+			<div class="controls"><%= f.password_field :password, class: "input-large" %></div>
+		</div>
 		
-		<%= f.label :password %>
-		<%= f.password_field :password %>
-		
-		<%= f.label :password_confirmation, "Confirmation" %>
-		<%= f.password_field :password_confirmation %>
-		
-		<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+		<div class="control-group">
+			<%= f.label :password_confirmation, "Confirmation", class: "control-label" %>
+			<div class="controls">
+				<%= f.password_field :password_confirmation, class: "input-large" %><br/><br/>
+				<%= f.submit "Sign Up", class: "btn" %>
+				<%= link_to "Already have an account?", signin_path %>
+			</div>
+		</div>
 		<% end %>
+	</div>
+	<div class="span6">
+		<script type="in/Login" data-size="large">Hello, <?js= firstName ?> <?js= lastName ?>.</script>		
 	</div>
 </div>

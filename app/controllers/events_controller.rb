@@ -1,10 +1,9 @@
 class EventsController < ApplicationController
   before_filter :fix_date_params, :only => [:create, :update]
-  #before_filter :signed_in_user, only: [:new, :create, :edit, :update]
+  before_filter :signed_in_user, only: [:new, :create, :edit, :update]
 
   def index
-  	@events = Event.order("start_date_time").paginate(page: params[:page], per_page: 30)
-    #.where("start_date_time >= '#{Time.now}'")
+  	@events = Event.where("start_date_time >= '#{Time.now}'").order("start_date_time").paginate(page: params[:page], per_page: 30)
   end
 
   def search
@@ -31,8 +30,8 @@ class EventsController < ApplicationController
 
 private
   def fix_date_params
-    if params[:start_date] != ""
-      start_date = Date.strptime(params.delete(:start_date), "%m/%d/%Y") 
+    if params[:event][:start_date_time] != ""
+      start_date = Date.strptime(params[:event].delete(:start_date_time), "%m/%d/%Y") 
       
       params[:event].merge!({
         'start_date_time(1i)' => start_date.year.to_s,
@@ -47,8 +46,8 @@ private
       })      
     end
 
-    if params[:end_date] != ""
-      end_date = Date.strptime(params.delete(:end_date), "%m/%d/%Y")
+    if params[:event][:end_date_time] != ""
+      end_date = Date.strptime(params[:event].delete(:end_date_time), "%m/%d/%Y")
 
       params[:event].merge!({
         'end_date_time(1i)' => end_date.year.to_s,
