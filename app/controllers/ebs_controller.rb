@@ -18,30 +18,41 @@ class EbsController < ApplicationController
 
 	  max_eb_id = EventBrite.maximum("eb_id")
 
-	  response = eb_client.event_search(keywords: "nonprofit", since_id: max_eb_id, city: "New York", max: "50")
+	  begin
+	  	response = eb_client.event_search(keywords: "nonprofit, non-profit", 
+	  									  since_id: max_eb_id, city: "New York", max: "100")
+	  rescue Exception => err
+	  	flash[:notice] = "Error retrieving events: " + err.message
+	  end
 
-	  events_json = response.parsed_response["events"]
+	  if !response.nil?
+	  	events_json = response.parsed_response["events"]
 
-	  $i = 1
-	  while $i > 0 and $i < events_json.count do
-		event = EventBrite.new
-		event.eb_id = events_json[$i]["event"]["id"] 
-		event.name = events_json[$i]["event"]["title"]
-		event.description = events_json[$i]["event"]["description"]
-		event.start_date_time = events_json[$i]["event"]["start_date"]
-		event.end_date_time = events_json[$i]["event"]["end_date"]
-		event.url = events_json[$i]["event"]["url"]
-		event.location = events_json[$i]["event"]["venue"]["name"]   
-		event.address = events_json[$i]["event"]["venue"]["address"] + events_json[$i]["event"]["venue"]["address_2"] + ', ' + events_json[$i]["event"]["venue"]["city"] + ', ' + events_json[$i]["event"]["venue"]["region"] + ' ' + events_json[$i]["event"]["venue"]["postal_code"]
+	    $i = 1
+	    while $i > 0 and $i < events_json.count do
+		  event = EventBrite.new
+		  event.eb_id = events_json[$i]["event"]["id"] 
+		  event.name = events_json[$i]["event"]["title"]
+		  event.description = events_json[$i]["event"]["description"]
+		  event.start_date_time = events_json[$i]["event"]["start_date"]
+		  event.end_date_time = events_json[$i]["event"]["end_date"]
+		  event.url = events_json[$i]["event"]["url"]
+		  event.location = events_json[$i]["event"]["venue"]["name"]   
+		  event.address = events_json[$i]["event"]["venue"]["address"] + 
+							events_json[$i]["event"]["venue"]["address_2"] + ', ' + 
+							events_json[$i]["event"]["venue"]["city"] + ', ' + 
+							events_json[$i]["event"]["venue"]["region"] + ' ' + 
+							events_json[$i]["event"]["venue"]["postal_code"]
 
-		event.cost = events_json[$i]["event"]["tickets"][0]["ticket"]["price"]
-		$i = $i + 1
+		  event.cost = events_json[$i]["event"]["tickets"][0]["ticket"]["price"]
+		  $i = $i + 1
 
-		if event.valid?
-		  event.save
-		else
-		  event.errors.inspect
-	  	end
+		  if event.valid?
+		    event.save
+		  else
+		    event.errors.inspect
+	  	  end
+	    end
 	  end
 	elsif params[:button] = "show"
 		# copy records from EventBrite to Event table

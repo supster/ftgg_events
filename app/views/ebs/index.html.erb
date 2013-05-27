@@ -22,6 +22,7 @@
 	<% end %>
 	<% if !@ebs.nil? %>
 		<%= form_tag ebs_path do %>
+		<%= will_paginate %>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -48,6 +49,7 @@
 			<% end %>
 			</tbody>
 		</table>
+		<%= will_paginate %>
 		<%= button_tag "Show", value: "show", confirm: "Are you sure?", class: "btn btn-primary" unless @ebs.count <= 0 %>
 		<%= button_tag "Archieve", value: "archieve", confirm: "Are you sure?", class: "btn btn-primary"  unless @ebs.count <= 0 %>
 		<% end %>
