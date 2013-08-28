@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130526210143) do
+ActiveRecord::Schema.define(:version => 20130809184034) do
+
+  create_table "ev_favorites", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ev_favorites", ["event_id"], :name => "index_ev_favorites_on_event_id"
+  add_index "ev_favorites", ["user_id"], :name => "index_ev_favorites_on_user_id"
 
   create_table "event_brites", :force => true do |t|
     t.string   "eb_id"

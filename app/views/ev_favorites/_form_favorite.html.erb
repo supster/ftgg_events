@@ -1,0 +1,9 @@
+<% if signed_in? %>
+	<div id="fav_form">
+		<% if current_user.ev_favorite?(@event.id)  %>
+			<%= render "ev_favorites/unfavorite", 	event_obj: @event %>
+		<%else%>
+			<%= render "ev_favorites/favorite", 	event_obj: @event %>
+		<% end %>
+	</div>
+<% end %>

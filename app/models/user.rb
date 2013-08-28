@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
-  has_many :wishlists
-  has_many :reviews, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :ev_favorites, dependent: :destroy
   has_secure_password
 
   before_save { |user| user.email = user.email.downcase }
@@ -15,16 +13,16 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6}
   validates :password_confirmation, presence: true
 
-  def favorite!(vendor_id)
-    self.favorites.create(vendor_id: vendor_id)
+  def ev_favorite!(event_id)
+    self.ev_favorites.create(event_id: event_id)
   end
   
-  def favorite?(vendor_id)
-    self.favorites.find_by_vendor_id(vendor_id)
+  def ev_favorite?(event_id)
+    self.ev_favorites.find_by_event_id(event_id)
   end
 
-  def unfavorite!(vendor_id)
-    self.favorites.find_by_vendor_id(vendor_id).destroy
+  def ev_unfavorite!(event_id)
+    self.ev_favorites.find_by_event_id(event_id).destroy
   end
 
   private 

@@ -10,7 +10,7 @@
 			<%= submit_tag "Search", name: nil, class: "btn" %> 
 		<% end %>
 		<%= will_paginate %>
-		<table class="table table-hover">
+		<table class="table">
 			<thead>
 				<tr>
 					<th>Date Time</th>
@@ -19,18 +19,23 @@
 				</tr>
 			</thead>
 			<tbody>
-			<% @events.each do |event| %>
+			<% @event_group.each do | d, events | %>
 				<tr>
-					<td><%= time_tag event.start_date_time %></td>
-					<td><%= if event.cost > 0 
-								number_to_currency(event.cost)
-							else 
-								"Free" 
-							end %></td>
-					<td><%= link_to event.name, event %><br>
-						<%= "#{event.location} #{event.address}" %><br>
-					</td>
+					<td colspan="3"><strong><%= time_tag d, format: '%B %d, %Y' %></strong></td>
 				</tr>
+				<% for event in events %>
+					<tr>	
+						<td><%= time_tag event.start_date_time, format: '%l:%M %p' %></td>
+						<td><%= if event.cost > 0 
+									number_to_currency(event.cost)
+								else 
+									"Free" 
+								end %></td>
+						<td><%= link_to event.name, event %><br>
+							<%= "#{event.location} #{event.address}" %><br>
+						</td>
+					</tr>
+				<% end %>
 			<% end %>
 			</tbody>
 		</table>

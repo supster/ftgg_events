@@ -1,0 +1,12 @@
+<% provide(:title, "My Favorites")%>
+<h1>My Favorite Events</h1>
+
+
+<ul class="users">
+	<% @ev_favorites.each do |favorite| %>
+		<li>
+			<%= link_to favorite.event.name, event_path(favorite.event_id) %>
+		</li>
+	<% end %>
+</ul>
+

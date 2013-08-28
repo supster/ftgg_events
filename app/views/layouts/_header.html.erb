@@ -1,13 +1,14 @@
 <header class="navbar">
   <div class="navbar-inner">
     <div class="container">
-    <%= link_to 'FTGG Event Guide', root_path, {id: "logo", class: 'brand'}%>
+    <%= link_to 'Social Good', root_path, {id: "logo", class: 'brand'}%>
 	<nav>
 		<ul class="nav pull-right">
 			<li><%= link_to "Events", 	root_path %></li>
 			<li><%= link_to "Add Event", 	new_event_path %></li>
-			<li><%= link_to "Import Events", ebs_path %></li>
 			<% if signed_in? %>
+				<li><%= link_to "Import Events", ebs_path %></li>
+				<li><%= link_to "My Favorite", ev_favorites_path %></li>
 				<li id="fat-menu" class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						Account <b class="caret"></b>

@@ -4,6 +4,7 @@ class EventsController < ApplicationController
 
   def index
   	@events = Event.where("start_date_time >= '#{Time.now}'").order("start_date_time").paginate(page: params[:page], per_page: 30)
+  	@event_group = @events.group_by { |d| d.start_date_time.beginning_of_day }
   end
 
   def search

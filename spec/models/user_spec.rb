@@ -15,10 +15,9 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
-  it { should respond_to(:reviews)}
-  it { should respond_to(:favorites)}
-  it { should respond_to(:favorite?)}
-  it { should respond_to(:favorite!)}
+  it { should respond_to(:ev_favorites)}
+  it { should respond_to(:ev_favorite?)}
+  it { should respond_to(:ev_favorite!)}
   
   it { should be_valid }
 

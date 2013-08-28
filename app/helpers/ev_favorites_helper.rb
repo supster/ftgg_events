@@ -1,0 +1,2 @@
+module EvFavoritesHelper
+end

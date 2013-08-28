@@ -11,6 +11,7 @@ class Event < ActiveRecord::Base
   validates :start_date_time, presence: true
   validates :address, presence: true, length: { maximum: 255 }
   validates :cost, numericality: { greater_than_or_equal_to: 0 }
+  has_many :ev_favorites, dependent: :destroy
 
   def start_date_time_cannot_be_in_the_past
     if !start_date_time.blank? and start_date_time < Time.now

@@ -40,45 +40,53 @@
 	  }
 	  
 	  google.maps.event.addDomListener(window, 'load', initialize);
+	  
+	/*$(document).ready(function(){
+		$("#btnFav").hover(function() {
+			$(this).attr("src","fav-hover.png");
+				}, function() {
+			$(this).attr("src","fav.png");
+		});
+	});*/
+	  
 	</script>  
 <% end %>
 <div class="row">
-	<div class="span12">
-		<h1>
+	<div class="span10">
+		<h2>
 			<%= @event.name %>
-		</h1>
-		<div class="row">
-			<div class="span12">
-				<table>
-					<tr><td width="30%">URL:</td><td><%= link_to @event.url, @event.url, :target => "_blank" %></td></tr>
-					<tr><td>Cost:</td>
-						<td> 
-						<%= if @event.cost > 0 
-								"$#{@event.cost}" 
-							else 
-								"Free" 
-							end %><br>
-						</td>
-					</tr>
-					<tr><td>Location:</td><td><%= "#{@event.location}, #{@event.address}" %></td></tr>
-				</table>
-				<table>
-					<tr><td>Map</td></tr>
-					<tr>
-						<td>
-							<div id="map-canvas"></div>
-						</td>
-					</tr>
-				</table>	
-				<table>
-					<tr><td>Description</td></tr>
-					<tr><td><%= @event.description.html_safe %></td></tr>
-				</table>
-				<table>
-					<tr><td>Benefits</td></tr>
-					<tr><td><%= @event.benefits %></td></tr>
-				</table>
-			</div>
-		</div>
+		</h2>
+		<table>
+			<tr><td width="30%">URL:</td><td><%= link_to @event.url, @event.url, :target => "_blank" %></td></tr>
+			<tr><td>Cost:</td>
+				<td> 
+				<%= if @event.cost > 0 
+						"$#{@event.cost}" 
+					else 
+						"Free" 
+					end %><br>
+				</td>
+			</tr>
+			<tr><td>Location:</td><td><%= "#{@event.location}, #{@event.address}" %></td></tr>
+		</table>
+		<table>
+			<tr><td>Map</td></tr>
+			<tr>
+				<td>
+					<div id="map-canvas"></div>
+				</td>
+			</tr>
+		</table>	
+		<table>
+			<tr><td>Description</td></tr>
+			<tr><td><%= @event.description.html_safe %></td></tr>
+		</table>
+		<table>
+			<tr><td>Benefits</td></tr>
+			<tr><td><%= @event.benefits %></td></tr>
+		</table>
+	</div>
+	<div class="span2">
+		<%= render "ev_favorites/form_favorite"%>
 	</div>
 </div>

@@ -3,6 +3,7 @@ Ftgg::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :events
+  resources :ev_favorites, only: [:index, :create, :destroy]  
    
   root to: 'events#index'
 
