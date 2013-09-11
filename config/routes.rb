@@ -5,13 +5,13 @@ Ftgg::Application.routes.draw do
   resources :events
   resources :ev_favorites, only: [:index, :create, :destroy]  
    
-  root to: 'events#index'
+  root to: 'welcome#home'
 
   match '/signup',    to: 'users#new'
   match '/signin',    to: 'sessions#new'
   match '/signout',   to: 'sessions#destroy', via: :delete
 
-  get 'events/search' 
+  get 'events/search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
