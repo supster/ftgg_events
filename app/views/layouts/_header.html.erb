@@ -1,30 +1,38 @@
 <header class="navbar">
   <div class="navbar-inner">
-    <div>
-    <%= link_to 'SOCIAL BLUEPRINT', root_path, {id: "logo", class: 'brand'}%>
-	<nav>
-		<ul class="nav pull-right">
-			<li><%= link_to "Events", 	events_path %></li>
-			<li><%= link_to "Add Event", 	new_event_path %></li>
-			<% if signed_in? %>
-				<li><%= link_to "Import Events", ebs_path %></li>
-				<li><%= link_to "Favorite Events", ev_favorites_path %></li>
-				<li id="fat-menu" class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Account <b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li><%= link_to 'Profile', 	current_user %></li>
-						<li><%= link_to 'Settings', edit_user_path(current_user) %></li>
-						<li class="divider"></li>
-						<li><%= link_to 'Sign Out', signout_path, method: "delete" %></li>	
+	<div class="h_container">
+	    <div class="row">
+		    <div class="span4">
+			    <%= link_to 'CHANCE FOR GOOD', root_path, {id: "logo", class: 'brand'}%>	
+			</div>
+			<div class="span8">
+				<nav>
+					<ul class="nav pull-right">
+						<li><%= link_to "Events", 	events_path %></li>
+						<li><%= link_to "Add Event", new_event_path %></li>
+						<% if signed_in? %>
+							<li><%= link_to "Import Events", ebs_path %></li>
+							<li id="fat-menu" class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									Account <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li><%= link_to "Bookmark", ev_favorites_path %></li>
+									<li><%= link_to "My Events", ev_favorites_path %></li>
+									<li><%= link_to "My Reviews", ev_favorites_path %></li>
+									<li><%= link_to 'Profile', edit_user_path(current_user) %></li>
+									<li class="divider"></li>
+									<li><%= link_to 'Sign Out', signout_path, method: "delete" %></li>	
+								</ul>
+							</li>
+						<% else %>
+							<li><%= link_to "Sign Up", 	signup_path %></li>
+							<li><%= link_to "Log In", 	signin_path %></li>
+						<% end %>
 					</ul>
-				</li>
-			<% else %>
-				<li><%= link_to "Sign In/Sign Up", 	signin_path %></li>
-			<% end %>
-		</ul>
-	</nav>
+				</nav>
+			</div>
+    	</div>
     </div>
   </div>
 </header>
